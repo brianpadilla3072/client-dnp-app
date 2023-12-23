@@ -2,7 +2,7 @@ import React from 'react';
 import { Avatar, Button, Card, Text } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
 
-const CardDevocionales = ({ title, description, icon }) => (
+const CardDevocionales = React.memo(({ title, description, icon }) => (
   <Card style={styles.cardDevocionales}>
     <Card.Title
       title={title}
@@ -16,7 +16,15 @@ const CardDevocionales = ({ title, description, icon }) => (
       <Button>Leer mas</Button>
     </Card.Actions>
   </Card>
-);
+), (prevProps, nextProps) => {
+  // Esta función personalizada define si el componente debe volver a renderizarse
+  // Puedes ajustarla según tus necesidades específicas
+  return (
+    prevProps.title === nextProps.title &&
+    prevProps.description === nextProps.description &&
+    prevProps.icon === nextProps.icon
+  );
+});
 
 const styles = StyleSheet.create({
   cardDevocionales: {
