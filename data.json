@@ -1,0 +1,69 @@
+{
+  "data": [
+    {
+      "title": "Ana García",
+      "description": "Apasionada por la música y la fotografía. Exploradora de la creatividad en cada momento.",
+      "icon": "music"
+    },
+    {
+      "title": "Carlos Rodríguez",
+      "description": "Aventurero y amante de los deportes extremos. Busca siempre nuevas emociones y desafíos.",
+      "icon": "bicycle"
+    },
+    {
+      "title": "Elena Martínez",
+      "description": "Creadora de contenido y escritora. Transforma ideas en historias cautivadoras y mensajes inspiradores.",
+      "icon": "pen"
+    },
+    {
+      "title": "Javier Sánchez",
+      "description": "Ingeniero apasionado por la tecnología. Siempre en busca de soluciones innovadoras para los desafíos del mundo.",
+      "icon": "palette"
+    },
+    {
+      "title": "María López",
+      "description": "Exploradora de la naturaleza y defensora del medio ambiente. Comprometida con la sostenibilidad.",
+      "icon": "leaf"
+    },
+    {
+      "title": "Roberto Pérez",
+      "description": "Chef creativo y amante de la gastronomía. Fusiona sabores para crear experiencias culinarias únicas.",
+      "icon": "food"
+    },
+    {
+      "title": "Laura Torres",
+      "description": "Viajera apasionada. Descubre el mundo y comparte sus experiencias a través de fotografías y relatos.",
+      "icon": "airplane"
+    },
+    {
+      "title": "Diego Ramírez",
+      "description": "Artista visual y diseñador. Transforma ideas en obras de arte que inspiran y provocan reflexión.",
+      "icon": "palette"
+    },
+    {
+      "title": "Isabel Castro",
+      "description": "Emprendedora social. Trabaja para crear un impacto positivo en la comunidad y promover la igualdad.",
+      "icon": "heart"
+    },
+    {
+      "title": "Miguel González",
+      "description": "Entusiasta de la ciencia y la exploración espacial. Sueña con alcanzar las estrellas y descubrir nuevos mundos.",
+      "icon": "rocket"
+    },
+    {
+      "title": "Luisa Torres",
+      "description": "Entusiasta de la moda y diseñadora. Crea estilos únicos que reflejan personalidades y emociones.",
+      "icon": "folder"
+    },
+    {
+      "title": "Raúl Jiménez",
+      "description": "Deportista y amante del fitness. Comparte su pasión por un estilo de vida saludable y activo.",
+      "icon": "dumbbell"
+    },
+    {
+      "title": "Sofía Navarro",
+      "description": "Astrónoma aficionada. Observa el cielo nocturno y comparte fascinantes descubrimientos sobre el universo.",
+      "icon": "telescope"
+    }
+  ]
+}
