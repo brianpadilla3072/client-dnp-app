@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, FlatList, View, Text, TouchableOpacity, Modal, ScrollView, RefreshControl } from 'react-native';
 import { Button } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { baseUrl } from '../ENV';
 
 import CardDevocionales from '../components/CardDevocionales';
 
@@ -25,7 +26,7 @@ const Devocionales = () => {
         setError(null);
       }
 
-      const response = await fetch('https://server-dnp.onrender.com/devotional');
+      const response = await fetch(`${baseUrl}/devotional`);
 
       if (!response.ok) {
         throw new Error('Network response was not ok');

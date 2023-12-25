@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import { ScrollView, View, StyleSheet } from "react-native";
 import FechaComponent from "../components/fechas";
 import Portada from "../components/portada";
+import { baseUrl } from "../ENV";
+
 
 const Inicio = () => {
   const [fechaData, setFechaData] = useState(null);
 
   useEffect(() => {
     // Realizar la petición GET al servidor o API
-    fetch('https://server-dnp.onrender.com/event')
+    fetch(`${baseUrl}/event`)
       .then(response => response.json())
       .then(result => setFechaData(result))
       .catch(error => console.error('Error al obtener datos:', error));

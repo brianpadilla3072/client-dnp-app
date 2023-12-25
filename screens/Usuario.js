@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Login from "../screens/RegisterScreen"
-
+import Registrar from "../screens/RegisterScreen"
+import Iniciar from "./loginScreens.js"
 const Usuario = () => {
   const navigation = useNavigation();
 
@@ -12,7 +12,8 @@ const Usuario = () => {
 
   return (
     <View style={styles.container}>
-      <Login/>
+      {/* <Registrar/> */}
+      <Iniciar/>
     </View>
   );
 };

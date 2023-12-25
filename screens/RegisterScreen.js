@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { baseUrl } from '../ENV';
 
 const RegisterScreen = () => {
   const [name, setName] = useState('');
@@ -10,7 +11,6 @@ const RegisterScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-
   const handleRegister = async () => {
     try {
       // Validaciones básicas
@@ -26,7 +26,7 @@ const RegisterScreen = () => {
       const dobInMilliseconds = new Date(dob).getTime();
 
       // Realizar la lógica de registro aquí
-      const response = await fetch('https://server-dnp.onrender.com/user', {
+      const response = await fetch(`${baseUrl}/user`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
