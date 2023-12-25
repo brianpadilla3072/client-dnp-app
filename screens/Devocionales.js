@@ -25,7 +25,7 @@ const Devocionales = () => {
         setError(null);
       }
 
-      const response = await fetch('https://server-dnp-app.vercel.app/devocional');
+      const response = await fetch('https://server-dnp.onrender.com/devotional');
 
       if (!response.ok) {
         throw new Error('Network response was not ok');

@@ -8,7 +8,7 @@ const Inicio = () => {
 
   useEffect(() => {
     // Realizar la petición GET al servidor o API
-    fetch('https://server-dnp-app.vercel.app/event')
+    fetch('https://server-dnp.onrender.com/event')
       .then(response => response.json())
       .then(result => setFechaData(result))
       .catch(error => console.error('Error al obtener datos:', error));

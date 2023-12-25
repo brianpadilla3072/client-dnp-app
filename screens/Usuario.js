@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Button, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Login from "../screens/RegisterScreen"
 
 const Usuario = () => {
   const navigation = useNavigation();
@@ -11,14 +12,13 @@ const Usuario = () => {
 
   return (
     <View style={styles.container}>
-      <Button title="Ir a Ajustes" onPress={goToAjustes} />
+      <Login/>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  container: {flex:1,
     justifyContent: 'center',
     alignItems: 'center',
   },
