@@ -1,13 +1,16 @@
 import React from 'react';
-import { StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import MainStack from './navigation/MainStack';
 import { NavigationContainer } from '@react-navigation/native';
+import ContextProvider from './context'; // Cambié la importación
 export default function App() {
   return (
-      
-    <NavigationContainer>
-    <MainStack />
-  </NavigationContainer>  );
+<ContextProvider>
+      <NavigationContainer>
+        <MainStack />
+      </NavigationContainer>
+    </ContextProvider>
+  );
 }
 
 const styles = StyleSheet.create({

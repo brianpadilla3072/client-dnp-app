@@ -6,7 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 Puedes usar este ContextProvider en tu aplicación para gestionar el estado del token de manera centralizada y compartirlo entre diferentes componentes. */
 // 1. Crear el Contexto
-export const tokenContext = createContext();
+export const GlobalContentext  = createContext();
 
 // 2. Definir el Componente `contextProvider`
 const ContextProvider = ({ children }) => {

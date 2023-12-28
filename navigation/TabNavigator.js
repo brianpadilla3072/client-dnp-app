@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icons from 'react-native-vector-icons/Ionicons';
 
 import HomeScreen from '../screens/Inicio';
-import SettingsScreen from '../screens/Usuario';
+import loginScreen from '../screens/Usuario';
+import homeUserScreen from "../screens/userWelcomeScreen"
 import DevocionalesScreen from '../screens/Devocionales';
-
+import { GlobalContentext } from "../context"; // Cambié la importación
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
+  const { getToken } = useContext(GlobalContentext); // Utilizando el contexto correcto
   const [selectedTab, setSelectedTab] = useState('Devocionales');
-
   const handleTabPress = (tabName) => {
     setSelectedTab(tabName);
+    const token = getToken(); // Obteniendo el token del contexto
+    // Puedes hacer lo que necesites con el token aquí
   };
   return (
     <Tab.Navigator>
@@ -61,7 +64,7 @@ const TabNavigator = () => {
       <Tab.Screen
         key={"Usuarios"}
         name="Usuarios"
-        component={SettingsScreen}
+        component={token ? loginScreen : homeUserScreen}
         options={{
           tabBarIcon: () => (
             <Icons
