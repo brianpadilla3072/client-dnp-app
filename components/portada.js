@@ -11,11 +11,21 @@ const Portada = ({ imageUrl }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    
     height: 250, // Ajusta la altura según tus necesidades
     overflow: 'hidden',
-    padding:4,
-    borderRadius:40,
+    padding:0,
+    margin: 10,
+    width:"96%",
+    borderRadius: 20, 
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.20,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   image: {
     width: '100%',

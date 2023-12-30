@@ -154,7 +154,6 @@ const styles = StyleSheet.create({
     height: 24,
   },
   errorText: {
-    color: 'red',
     marginBottom: 10,
     textAlign: 'center',
     fontSize: 16,

@@ -72,9 +72,8 @@ const Inicio = () => {
 
   return (
     <View style={styles.container}>
-      <Portada imageUrl="https://th.bing.com/th/id/OIP.YL5bOMKzdMkrFD4OYX7z2AHaEK?rs=1&pid=ImgDetMain" />
-
       <ScrollView
+
         contentContainerStyle={styles.scrollViewContainer}
         showsVerticalScrollIndicator={false}
         refreshControl={
@@ -84,6 +83,8 @@ const Inicio = () => {
           />
         }
       >
+              <Portada  imageUrl="https://th.bing.com/th/id/OIP.YL5bOMKzdMkrFD4OYX7z2AHaEK?rs=1&pid=ImgDetMain" />
+
         {fechaData && fechaData.map((data, i) => (
           <View key={i} style={styles.fechaContainer}>
             <View style={styles.date}>
@@ -106,8 +107,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   container: {
+    
+    alignItems: 'center',
     flex: 1,
     marginTop: 24,
+    width:"100%",
+    
   },
   fechaContainer: {
     flexDirection: 'row',
@@ -116,16 +121,27 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 9,
     margin: 4,
-    backgroundColor: "#FF4",
-    height: 100,
-    width: '95%', // Cambiado a porcentaje
+    backgroundColor: "#FFF",
+    height: 100, // Cambiado a porcentaje
+    width:"95%",
+    borderRadius: 18, 
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.20,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   date: {
+    alignItems:"center",
     fontSize: 18,
     fontWeight: 'bold',
     width: '20%', // Cambiado a porcentaje
   },
   title: {
+    
     fontSize: 18,
     marginLeft: 10,
     width: '80%', // Cambiado a porcentaje
