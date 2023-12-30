@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, View, Text, StyleSheet } from "react-native";
+import { ScrollView, RefreshControl, View, Text, StyleSheet } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Portada from "../components/portada";
 import { baseUrl } from "../ENV";
@@ -7,28 +7,19 @@ import { baseUrl } from "../ENV";
 const Inicio = () => {
   const [fechaData, setFechaData] = useState(null);
   const [error, setError] = useState(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   useEffect(() => {
     fetchData();
   }, []);
 
   const formatDate = (dateString) => {
-    // Opciones de formato para la fecha
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  
-    // Crear una nueva instancia de Date con la cadena de fecha
     const dateObject = new Date(dateString);
-  
-    // Utilizar toLocaleDateString para obtener la fecha formateada
-    // 'es-ES' indica el idioma español
     const formattedDate = dateObject.toLocaleDateString('es-ES', options);
-  
-    // Obtener el día, mes y año por separado
     const day = dateObject.getDate();
-    const month = dateObject.getMonth() + 1; // Sumar 1 porque los meses comienzan desde 0
+    const month = dateObject.getMonth() + 1;
     const year = dateObject.getFullYear();
-  
-    // Devolver un objeto con las propiedades deseadas
     return {
       formattedDate,
       day,
@@ -36,10 +27,11 @@ const Inicio = () => {
       year,
     };
   };
-  
-  
+
   const fetchData = async () => {
     try {
+      setIsRefreshing(true);
+
       const storedData = await AsyncStorage.getItem('fechasData');
 
       if (storedData) {
@@ -56,7 +48,7 @@ const Inicio = () => {
       const result = await response.json();
       setFechaData(result);
       setError(null);
-      console.log(result)
+
       await AsyncStorage.setItem('fechasData', JSON.stringify(result));
     } catch (error) {
       console.error('Error al obtener datos:', error);
@@ -69,7 +61,13 @@ const Inicio = () => {
       } else {
         setError('Error al obtener datos. Intente nuevamente.');
       }
+    } finally {
+      setIsRefreshing(false);
     }
+  };
+
+  const onRefresh = () => {
+    fetchData();
   };
 
   return (
@@ -79,14 +77,21 @@ const Inicio = () => {
       <ScrollView
         contentContainerStyle={styles.scrollViewContainer}
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={isRefreshing}
+            onRefresh={onRefresh}
+          />
+        }
       >
         {fechaData && fechaData.map((data, i) => (
           <View key={i} style={styles.fechaContainer}>
-            <View>
-
-            <Text style={styles.date}>{formatDate(data.date).day}</Text>
+            <View style={styles.date}>
+              <Text>{formatDate(data.date).day}</Text>
             </View>
-            <Text style={styles.title}>{data.tittle}</Text>
+            <View style={styles.title}>
+              <Text>{data.tittle}</Text>
+            </View>
           </View>
         ))}
       </ScrollView>
@@ -96,8 +101,8 @@ const Inicio = () => {
 
 const styles = StyleSheet.create({
   scrollViewContainer: {
-    paddingTop: 10, // Ajusta según sea necesario
-    justifyContent: "flex-start", // Posiciona el contenido en la parte superior
+    paddingTop: 10,
+    justifyContent: "flex-start",
     alignItems: "center",
   },
   container: {
@@ -109,16 +114,21 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 10,
-    padding:4,
-    margin:4,
+    padding: 9,
+    margin: 4,
+    backgroundColor: "#FF4",
+    height: 100,
+    width: '95%', // Cambiado a porcentaje
   },
   date: {
     fontSize: 18,
     fontWeight: 'bold',
+    width: '20%', // Cambiado a porcentaje
   },
   title: {
     fontSize: 18,
-    marginLeft: 10, // Espaciado entre la fecha y el título
+    marginLeft: 10,
+    width: '80%', // Cambiado a porcentaje
   },
 });
 

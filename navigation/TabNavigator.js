@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import Icons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+
 import HomeScreen from '../screens/Inicio';
 import loginScreen from '../screens/Usuario';
 import homeUserScreen from '../screens/userWelcomeScreen';
