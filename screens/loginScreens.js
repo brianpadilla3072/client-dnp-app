@@ -47,9 +47,6 @@ const LoginScreen = () => {
       // Extraer el token de la respuesta
       const { token } = responseData;
       setToken(token);
-
-      // Mostrar el token en la alerta
-      Alert.alert('Éxito', `Inicio de sesión exitoso. Token: ${token}`);
     } catch (error) {
       Alert.alert('Error', error.message || 'Error en el inicio de sesión');
 

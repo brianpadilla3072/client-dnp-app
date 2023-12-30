@@ -1,7 +1,6 @@
-import React, { useContext, useState,useEffect } from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React, { useContext, useState, useEffect } from 'react';
 import Icons from 'react-native-vector-icons/Ionicons';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import HomeScreen from '../screens/Inicio';
 import loginScreen from '../screens/Usuario';
@@ -10,22 +9,21 @@ import DevocionalesScreen from '../screens/Devocionales';
 import { GlobalContentext } from '../context';
 
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
 
 const TabNavigator = () => {
-  const { getToken } = useContext(GlobalContentext);
-  const [token, setToken] = useState(null); // Inicializa el estado con null
-  useEffect(() => {
-    // Actualiza el estado con el token cuando cambie
-    setToken(getToken());
-  }, [getToken]);
+  const { getToken,token } = useContext(GlobalContentext);
+  const [toen, setToken] = useState(null);
   const [selectedTab, setSelectedTab] = useState('Devocionales');
 
   const handleTabPress = (tabName) => {
     setSelectedTab(tabName);
-  
-    // Puedes hacer lo que necesites con el token aquí
   };
+
+  useEffect(() => {
+    // Actualiza el estado local con el token del contexto
+    setToken(getToken());
+  }, [getToken, selectedTab]); // Agrega selectedTab como dependencia si es necesario
+
 
   return (
     <Tab.Navigator>
