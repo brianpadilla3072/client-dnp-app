@@ -2,14 +2,14 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import MainStack from './navigation/MainStack';
 import { NavigationContainer } from '@react-navigation/native';
-import ContextProvider from './context'; // Cambié la importación
+import ContextProvider  from './context'; // Cambié la importación
 export default function App() {
   return (
-<ContextProvider>
+    <ContextProvider >
       <NavigationContainer>
         <MainStack />
       </NavigationContainer>
-    </ContextProvider>
+    </ContextProvider >
   );
 }
 

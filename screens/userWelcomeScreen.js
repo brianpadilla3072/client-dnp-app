@@ -1,13 +1,9 @@
 import { StyleSheet, Text, View, Button } from 'react-native';
 import React, { useContext } from 'react';
-import { tokenContext } from '../context';
-
-
-
+import { GlobalContentext } from '../context';
 
 export default function WelcomeScreen() {
-  const { removeToken } = useContext(tokenContext);
-  const { token } = useContext(tokenContext);
+  const { removeToken, token } = useContext(GlobalContentext);
   console.log('Token:', token);
 
   return (

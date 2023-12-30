@@ -41,9 +41,9 @@ const ContextProvider = ({ children }) => {
 
     // 6. Proporcionar el Contexto a los Componentes Secundarios
     return (
-        <tokenContext.Provider value={{ token: localToken, getToken, setToken, removeToken }}>
+        <GlobalContentext.Provider value={{ token: localToken, getToken, setToken, removeToken }}>
             {children}
-        </tokenContext.Provider>
+        </GlobalContentext.Provider>
     )
 }
 

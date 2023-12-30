@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useContext  } from 'react';
 import {
   View,
   Text,
@@ -8,13 +8,16 @@ import {
   Image,
   Alert,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { baseUrl } from '../ENV';
+import { GlobalContentext } from "../context"; // Corrige la importación
+
 
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { setToken } = useContext(GlobalContentext); // Utilizando el contexto correcto
+
 
   const handleLogin = async () => {
     try {
@@ -43,14 +46,7 @@ const LoginScreen = () => {
 
       // Extraer el token de la respuesta
       const { token } = responseData;
-
-
-      // Guardar el token en AsyncStorage
-      await AsyncStorage.setItem('userToken', token);
-
-      // Limpiar los campos después del inicio de sesión exitoso
-      setEmail('');
-      setPassword('');
+      setToken(token);
 
       // Mostrar el token en la alerta
       Alert.alert('Éxito', `Inicio de sesión exitoso. Token: ${token}`);
