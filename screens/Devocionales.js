@@ -3,6 +3,7 @@ import { StyleSheet, FlatList, View, Text, TouchableOpacity, Modal, ScrollView, 
 import { Button } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { baseUrl } from '../ENV';
+import PublicarDevocional from "../components/publicarDevocional"
 
 import CardDevocionales from '../components/CardDevocionales';
 
@@ -70,8 +71,10 @@ const Devocionales = () => {
 
   return (
     <View style={styles.container}>
+      <PublicarDevocional/>
       {error && <Text style={styles.errorText}>{error}</Text>}
       <FlatList
+      
         data={data}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
