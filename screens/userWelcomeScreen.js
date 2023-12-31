@@ -1,15 +1,19 @@
 import { StyleSheet, Text, View, Button } from 'react-native';
-import React, { useContext } from 'react';
+import React, { useContext, useState,useEffect } from 'react';
 import { GlobalContentext } from '../context';
+import UserProfileCard from '../components/userProfileCard';
+
 
 export default function WelcomeScreen() {
     
-  const { removeToken, token } = useContext(GlobalContentext);
 
+  const { removeToken, token, getToken } = useContext(GlobalContentext);
+  
+ 
   return (
     <View style={styles.container}>
-      <Text>WelcomeScreen {token} </Text>
-      <Button title="Cerrar sesión" onPress={removeToken} />
+      <UserProfileCard/>
+
     </View>
   );
 }
