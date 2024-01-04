@@ -16,7 +16,7 @@ import { GlobalContentext } from "../context"; // Corrige la importación
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { setToken } = useContext(GlobalContentext); // Utilizando el contexto correcto
+  const { setToken, setUser } = useContext(GlobalContentext); // Utilizando el contexto correcto
 
 
   const handleLogin = async () => {
@@ -38,7 +38,7 @@ const LoginScreen = () => {
         }),
       });
       const responseData = await response.json();
-      console.log(responseData);
+
       if (!response.ok) {
         throw new Error(responseData?.error || 'Error en el inicio de sesión');
        
@@ -46,7 +46,9 @@ const LoginScreen = () => {
 
       // Extraer el token de la respuesta
       const { token } = responseData;
+      const {user}= responseData;
       setToken(token);
+      setUser(JSON.stringify(user));
     } catch (error) {
       Alert.alert('Error', error.message || 'Error en el inicio de sesión');
 

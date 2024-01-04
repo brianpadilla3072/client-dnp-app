@@ -2,33 +2,37 @@ import React, { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { GlobalContentext } from '../context';
 import { Button as RNButton } from 'react-native'; // Cambia el nombre del import a RNButton
-import { Button } from 'react-native-elements'; // Importa Button desde 'react-native-elements'
 
-const imageUrl = "";
 
 const UserProfileCard = () => {
-    const { removeToken } = useContext(GlobalContentext);
-
+    const { removeToken,user } = useContext(GlobalContentext);
+    const userL = JSON.parse(user)
+    console.log(userL)
     return (
-        <View style={styles.outerDiv}>
-            <View style={styles.innerDiv}>
-                <View style={styles.front}>
-                    <View style={styles.frontBkgPhoto}></View>
-                    <View style={styles.frontFacePhoto}></View>
-                    <View style={styles.frontText}>
-                        <Text style={styles.title}>Norma Jordan Anzaldo</Text>
-                    </View>
-
-                    <RNButton
-                        title="Cerrar sesión"
-                        onPress={removeToken}
-                        buttonStyle={styles.btnCerrarSeccion}
-                    />                
-                    </View>
+      <View style={styles.outerDiv} key={userL.userid}>
+        <View style={styles.innerDiv}>
+          <View style={styles.front}>
+            <View style={styles.frontBkgPhoto}></View>
+            <View style={styles.frontFacePhoto}></View>
+            <View style={styles.frontText}>
+              <Text style={styles.title}> {userL.name} {userL.surnsme}</Text>
+              <Text style={styles.title}>{userL.email}</Text>
+               <Text style={styles.title}>{userL.rol}</Text>
+                <Text style={styles.title}>{userL.dob}</Text>
+                 <Text style={styles.title}>{userL.userid}</Text>
             </View>
+  
+            <RNButton
+              title="Cerrar sesión"
+              onPress={removeToken}
+              buttonStyle={styles.btnCerrarSeccion}
+            />
+          </View>
         </View>
+      </View>
     );
-};
+  };
+  
 
 const styles = StyleSheet.create({
     outerDiv: {

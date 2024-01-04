@@ -19,7 +19,6 @@ const TabNavigator = () => {
   const handleTabPress = (tabName) => {
     setSelectedTab(tabName);
   };
-
   useEffect(() => {
     // Actualiza el estado local con el token del contexto
     setToken(getToken());

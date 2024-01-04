@@ -1,20 +1,14 @@
 import { StyleSheet, Text, View, Button } from 'react-native';
-import React, { useContext, useState,useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { GlobalContentext } from '../context';
 import UserProfileCard from '../components/userProfileCard';
 
-
 export default function WelcomeScreen() {
-    
 
-  const { removeToken, token, getToken } = useContext(GlobalContentext);
-  
- 
   return (
     <View style={styles.container}>
-      <UserProfileCard/>
-
-    </View>
+      <UserProfileCard/>    
+      </View>
   );
 }
 

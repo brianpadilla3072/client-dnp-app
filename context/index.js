@@ -12,6 +12,17 @@ export const GlobalContentext  = createContext();
 const ContextProvider = ({ children }) => {
     // 3. Establecer el Estado Local
     const [localToken, setLocalToken] = useState(null);
+    const [LocalUser, setLocalUser]= useState(null);
+
+    const getUser = async () => {
+        const _User = await AsyncStorage.getItem("userData");
+        setLocalUser(_User);
+    }
+
+    const setUser = async (user) => {
+        await AsyncStorage.setItem('userData', user);
+        setLocalToken(user);
+    }
 
     // 4. Funciones para Obtener, Establecer y Eliminar el Token
     const getToken = async () => {
@@ -37,11 +48,12 @@ const ContextProvider = ({ children }) => {
     // 5. Efecto Secundario para Obtener el Token Inicial
     useEffect(() => {
         getToken();
+        getUser();
     }, [])
 
     // 6. Proporcionar el Contexto a los Componentes Secundarios
     return (
-        <GlobalContentext.Provider value={{ token: localToken, getToken, setToken, removeToken }}>
+        <GlobalContentext.Provider value={{ token: localToken, getToken, setToken, removeToken, setUser,getUser,user: LocalUser }}>
             {children}
         </GlobalContentext.Provider>
     )
