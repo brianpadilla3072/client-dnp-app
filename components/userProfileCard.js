@@ -7,7 +7,7 @@ import { Button as RNButton } from 'react-native'; // Cambia el nombre del impor
 const UserProfileCard = () => {
     const { removeToken,user } = useContext(GlobalContentext);
     const userL = JSON.parse(user)
-    console.log(userL)
+    console.log(user)
     return (
       <View style={styles.outerDiv} key={userL.userid}>
         <View style={styles.innerDiv}>

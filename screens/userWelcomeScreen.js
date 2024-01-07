@@ -3,7 +3,9 @@ import React, { useContext, useState, useEffect } from 'react';
 import { GlobalContentext } from '../context';
 import UserProfileCard from '../components/userProfileCard';
 
+
 export default function WelcomeScreen() {
+
 
   return (
     <View style={styles.container}>
