@@ -21,7 +21,15 @@ const ContextProvider = ({ children }) => {
         await AsyncStorage.setItem('userData', user);
         setLocalUser(user);
     }
-
+    const removeUser = async () => {
+        try {
+            await AsyncStorage.removeItem('userData');
+            setLocalUser(null);
+            console.log('Token eliminado correctamente');
+        } catch (error) {
+            console.error('Error al eliminar el token', error);
+        }
+    };
     const getToken = async () => {
         const _token = await AsyncStorage.getItem("userToken");
         setLocalToken(_token);
@@ -48,7 +56,7 @@ const ContextProvider = ({ children }) => {
     }, []);
 
     return (
-        <GlobalContentext.Provider value={{ token: localToken, getToken, setToken, removeToken, setUser, getUser, user: localUser }}>
+        <GlobalContentext.Provider value={{ token: localToken, getToken, setToken, removeToken,user: localUser , setUser, getUser,removeUser }}>
             {children}
         </GlobalContentext.Provider>
     )
