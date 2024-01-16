@@ -1,77 +1,84 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, TouchableOpacity, Text } from 'react-native';
+import React from 'react';
+import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 
-const PublicarDevocional = () => {
-  const [devocionalText, setDevocionalText] = useState('');
-
-  const handlePublicar = () => {
-    // Aquí puedes implementar la lógica para publicar el devocional
-    console.log('Texto a publicar:', devocionalText);
-    // También puedes enviar devocionalText a tu servidor, base de datos, etc.
-  };
-
+export default function Component() {
   return (
-    <View style={styles.container}>
-      <View style={styles.card}>
-        <TextInput
-          style={styles.input}
-          multiline
-          placeholder="Escribe tu devocional..."
-          value={devocionalText}
-          onChangeText={setDevocionalText}
-        />
+    <View style={{ flex: 1, backgroundColor: '#f0f0f0' }}>
+      
+      <ScrollView style={{ flex: 1, padding: 16 }}>
+        <View style={{ marginBottom: 16 }}>
+          <Text style={{ fontSize: 16, color: '#333333', marginBottom: 8 }}>Título</Text>
+          <TextInput
+            style={{
+              borderWidth: 1,
+              borderColor: '#cccccc',
+              borderRadius: 4,
+              paddingVertical: 8,
+              paddingHorizontal: 12,
+              fontSize: 16,
+              color: '#333333',
+            }}
+            placeholder="Ingrese el título"
+            placeholderTextColor="#999999"
+            required
+          />
+        </View>
+        <View style={{ marginBottom: 16 }}>
+          <Text style={{ fontSize: 16, color: '#333333', marginBottom: 8 }}>Imagen de Portada</Text>
+          {/* Reemplaza la entrada de archivo con un componente de selección de imagen apropiado */}
+          {/* Por ejemplo, puedes usar la biblioteca 'react-native-image-picker' */}
+          {/* Instálala ejecutando: npm install react-native-image-picker */}
+          {/* Impórtala y úsala según corresponda */}
+          <TextInput
+            style={{
+              borderWidth: 1,
+              borderColor: '#cccccc',
+              borderRadius: 4,
+              paddingVertical: 8,
+              paddingHorizontal: 12,
+              fontSize: 16,
+              color: '#333333',
+            }}
+            placeholder="Selecciona la imagen de portada"
+            placeholderTextColor="#999999"
+            editable={false} // Deshabilita la edición por simplicidad
+          />
+        </View>
+        <View style={{ marginBottom: 16 }}>
+          <Text style={{ fontSize: 16, color: '#333333', marginBottom: 8 }}>Contenido</Text>
+          <TextInput
+            style={{
+              height: 310,
+              borderWidth: 1,
+              borderColor: '#cccccc',
+              borderRadius: 16,
+              paddingVertical: 8,
+              paddingHorizontal: 12,
+              fontSize: 16,
+              color: '#333333',
+              textAlignVertical: 'top',
+            }}
+            placeholder="Ingrese el contenido"
+            placeholderTextColor="#999999"
+            multiline
+            numberOfLines={4}
+            required
+          />
+        </View>
         <TouchableOpacity
-          style={[styles.btnPublicar, { opacity: devocionalText.trim() ? 1 : 0.5 }]}
-          onPress={handlePublicar}
-          disabled={!devocionalText.trim()} // Desactiva el botón si no hay texto o solo hay espacios en blanco
+          style={{
+            backgroundColor: '#4b7bec',
+            borderRadius: 4,
+            paddingVertical: 12,
+            alignItems: 'center',
+          }}
+          onPress={() => {
+            // Maneja la presentación del formulario
+          }}
         >
-          <Text style={styles.btnText}>Publicar</Text>
+          <Text style={{ fontSize: 18, color: '#ffffff' }}>Publicar</Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     </View>
   );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-  },
-  card: {
-    backgroundColor: '#fff',
-    width: '95%',
-    height: 300,
-    borderRadius: 15,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.20,
-    shadowRadius: 3.84,
-    elevation: 5,
-    marginBottom: 10,
-    padding: 20,
-    justifyContent: 'space-between',
-  },
-  input: {
-    height: '75%',
-    borderColor: '#000',
-    borderWidth: 1,
-    borderRadius: 10,
-    padding: 8,
-    marginBottom: 9,
-    textAlignVertical: 'top',
-  },
-  btnPublicar: {
-    backgroundColor: '#4CAF56',
-    padding: 10,
-    borderRadius: 7,
-    alignItems: 'center',
-  },
-  btnText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-});
-
-export default PublicarDevocional;
+}

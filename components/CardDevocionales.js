@@ -35,6 +35,8 @@ const styles = StyleSheet.create({
   iconPerfil: {
     width: 40,
     height: 40,
+    backgroundColor: "#fba007"
+
     //backgroundColor: 'white', // Añade un fondo blanco para separar visualmente el icono del título
   },
   cardTitle: {

@@ -83,7 +83,7 @@ const Inicio = () => {
           />
         }
       >
-              <Portada  imageUrl="https://th.bing.com/th/id/OIP.YL5bOMKzdMkrFD4OYX7z2AHaEK?rs=1&pid=ImgDetMain" />
+              <Portada  imageUrl='https://scontent.fbhi1-1.fna.fbcdn.net/v/t39.30808-6/243184090_957574888306933_308468127860268102_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=783fdb&_nc_eui2=AeHwBXejKjpDWrVYMZDdHnzZq8eDXEVSzcSrx4NcRVLNxAItI8BBlRPP8RBsceujiG8y-T14Am2gcZFps_SEGu7Y&_nc_ohc=iKLN6bT17e8AX9h455R&_nc_ht=scontent.fbhi1-1.fna&oh=00_AfAF3wbdvZELbG0mLuqZapOHBIwfjIAUeGXgT7sk6CpGxQ&oe=65A7C241' />
 
         {fechaData && fechaData.map((data, i) => (
           <View key={i} style={styles.fechaContainer}>

@@ -1,4 +1,4 @@
-import React, { useState,useContext  } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   View,
   Text,
@@ -12,12 +12,10 @@ import { baseUrl } from '../ENV';
 import { GlobalContentext } from "../context"; // Corrige la importación
 
 
-
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { setToken, setUser } = useContext(GlobalContentext); // Utilizando el contexto correcto
-
 
   const handleLogin = async () => {
     try {
@@ -41,43 +39,54 @@ const LoginScreen = () => {
 
       if (!response.ok) {
         throw new Error(responseData?.error || 'Error en el inicio de sesión');
-       
       }
 
       // Extraer el token de la respuesta
       const { token } = responseData;
-      const {user}= responseData;
+      const { user } = responseData;
       setToken(token);
       setUser(JSON.stringify(user));
     } catch (error) {
       Alert.alert('Error', error.message || 'Error en el inicio de sesión');
-
     }
   };
 
   return (
     <View style={styles.container}>
-      <Image
-        source={{ uri: 'URL_DE_TU_LOGO' }}
-        style={styles.logo}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Correo electrónico"
-        keyboardType="email-address"
-        value={email}
-        onChangeText={(text) => setEmail(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Contraseña"
-        secureTextEntry
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-      />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Iniciar sesión</Text>
+      <View style={styles.logoContainer}>
+        <Image
+          source={require('../assets/icon.png')} // Agrega la ruta correcta de tu imagen
+          style={styles.logo}
+        />
+         <Text style={styles.title}>Ingresa a tu cuenta</Text>
+      </View>
+      
+      <View style={{ width: '100%' }}>
+        <TextInput
+          autoCompleteType="email"
+          style={styles.input}
+          placeholder="Correo Electronico"
+          keyboardType="email-address"
+          onChangeText={(text) => setEmail(text)}
+        />
+        <TextInput
+          autoCompleteType="password"
+          style={styles.input}
+          placeholder="Contraseña"
+          secureTextEntry
+          onChangeText={(text) => setPassword(text)}
+        />
+      </View>
+      <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => Alert.alert('Perdiste tu contraseña?')}>
+        <Text style={{ color: '#3182CE', fontSize: 14, fontWeight: '600' }}>Perdiste tu contraseña? </Text>
       </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+      
+        <Text style={styles.buttonText}>Ingresar</Text>
+      
+    </TouchableOpacity>
+      
     </View>
   );
 };
@@ -87,35 +96,55 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 20,
-  },
-  logo: {
-    width: 100,
-    height: 100,
-    marginBottom: 30,
-    resizeMode: 'contain',
+    backgroundColor: '#f0f0f0',
+    padding: 16,
   },
   input: {
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 5,
-    marginBottom: 20,
+    marginBottom: 12,
     paddingHorizontal: 10,
-    width: '100%',
-  },
-  button: {
-    backgroundColor: 'blue',
-    padding: 10,
-    borderRadius: 5,
-    width: '100%',
-    alignItems: 'center',
+    width: 300,
   },
   buttonText: {
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
   },
+  logoContainer: {
+    maxWidth: 300,
+    width: '100%',
+    marginBottom: 32,
+    alignItems: 'center',
+  },
+  logo: {
+    height: 72,
+    width: 72,
+    aspectRatio: 1,
+    resizeMode: 'cover',
+  },
+  title: {
+    marginTop: 6,
+    textAlign: 'center',
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+   button: {
+    borderRadius: 4,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    backgroundColor: "#fba007"
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
+    textAlign: 'center',
+  }
+
 });
 
 export default LoginScreen;

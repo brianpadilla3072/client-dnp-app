@@ -5,8 +5,8 @@ import { GlobalContentext } from '../context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { baseUrl } from '../ENV';
 import CardDevocionales from '../components/CardDevocionales';
-import SuperComponent from '../components/publicarDevocional'; // Importa el componente para usuarios "super"
-import EditorComponent from '../components/publicarDevocional'; // Importa el componente para usuarios "editor"
+import SuperComponent from '../components/btnAdd'; // Importa el componente para usuarios "super"
+import EditorComponent from '../components/btnAdd'; // Importa el componente para usuarios "editor"
 
 const Devocionales = () => {
     // Obtener el usuario del contexto global
@@ -88,15 +88,7 @@ const Devocionales = () => {
 
 
 
-            {/* Renderizar componente específico según el rol del usuario */}
-            {userLocal?.rol !== null && (
-                <View>
-                    {/* Switch para manejar distintos tipos de usuarios */}
-                    {userLocal?.rol === 'super' && <SuperComponent />}
-                    {userLocal?.rol === 'editor' && <EditorComponent />}
-                </View>
-            )}
-
+            
             {/* Lista de devocionales con posibilidad de "tirar para actualizar" */}
             <FlatList
                 data={data}
@@ -146,6 +138,15 @@ const Devocionales = () => {
                     </View>
                 </Modal>
             )}
+            {/* Renderizar componente específico según el rol del usuario */}
+            {userLocal?.rol !== null && (
+                <View>
+                    {/* Switch para manejar distintos tipos de usuarios */}
+                    {userLocal?.rol === 'super' && <SuperComponent />}
+                    {userLocal?.rol === 'editor' && <EditorComponent />}
+                </View>
+            )}
+
         </View>
     );
 };
@@ -155,10 +156,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginTop: 24,
-        padding: 16,
+        
     },
     cardContainer: {
         marginBottom: 16,
+        marginRight:16,
+        marginLeft:16
     },
     modalContainer: {
         flex: 1,
