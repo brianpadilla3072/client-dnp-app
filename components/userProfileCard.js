@@ -5,13 +5,12 @@ import { Button as RNButton } from 'react-native';
 
 const UserProfileCard = () => {
   const { removeToken, removeUser, user } = useContext(GlobalContentext);
-  const userL = user ? JSON.parse(user) : null;
+  const userL = user ? JSON.parse(user) : {};
 
   const handleLogout = () => {
     removeToken();
     removeUser();
   };
-
   return (
     <View style={styles.outerDiv} key={userL ? userL.userid : null}>
       <View style={styles.innerDiv}>
@@ -19,7 +18,7 @@ const UserProfileCard = () => {
           <View style={styles.frontBkgPhoto}></View>
           <View style={styles.frontFacePhoto}></View>
 
-          <Text style={{ fontSize: 24, fontWeight: 'bold', marginTop: 8 }}>{userL.name }</Text>
+          <Text style={{ fontSize: 24, fontWeight: 'bold', marginTop: 8 }}>{userL.email}</Text>
           <Text style={{ color: '#888', marginTop: 4 }}>{userL.email}</Text>
           <View style={{ flexDirection: 'row', marginTop: 8 }}>
             {/* Utilizando TouchableOpacity en lugar de Button */}
