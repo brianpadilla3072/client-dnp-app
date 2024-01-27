@@ -1,18 +1,11 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
-const BtnAdd = () => {
-  const navigation = useNavigation();
-
-  const publicar = () => {
-    // Navegar a la pantalla de publicar devocionales
-    navigation.navigate('Nuevo Devocional'); // Asegúrate de tener una pantalla con este nombre en tu Stack Navigator
-  };
+const BtnAdd = ({ onPressHandler }) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={publicar}>
+      <TouchableOpacity style={styles.button} onPress={onPressHandler}>
         <Text style={styles.buttonText}>+</Text>
       </TouchableOpacity>
     </View>
@@ -33,10 +26,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFA500',
     borderRadius: 100,
     padding: 10,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     width: 65,
-    height: 65
+    height: 65,
   },
   buttonText: {
     color: 'white',

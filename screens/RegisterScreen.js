@@ -12,7 +12,6 @@ import { baseUrl } from "../ENV";
 
 const RegisterScreen = () => {
   const [firstName, setFirstName] = useState('');
-  const [secondName, setSecondName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -55,7 +54,6 @@ const RegisterScreen = () => {
 
       // Limpiar los campos después del registro exitoso
       setFirstName('');
-      setSecondName('');
       setLastName('');
       setEmail('');
       setBirthDay('');
@@ -103,12 +101,7 @@ const RegisterScreen = () => {
             value={firstName}
             onChangeText={(text) => setFirstName(text)}
           />
-          <TextInput
-            style={styles.input}
-            placeholder="Segundo nombre"
-            value={secondName}
-            onChangeText={(text) => setSecondName(text)}
-          />
+        
           <TextInput
             style={styles.input}
             placeholder="Apellido"

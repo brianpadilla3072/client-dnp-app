@@ -1,17 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { GlobalContentext } from '../context';
 import { ScrollView, RefreshControl, View, Text, StyleSheet } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Portada from "../components/portada";
 import { baseUrl } from "../ENV";
+import BtnAdd from '../components/btnAdd'; // Importa el componente para usuarios "super"
+import { useNavigation } from '@react-navigation/native';
 
 const Inicio = () => {
+  const navigation = useNavigation();
+
+  const { user } = useContext(GlobalContentext);
   const [fechaData, setFechaData] = useState(null);
   const [error, setError] = useState(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [userExists, setUserExists] = useState(false);   // Nuevo estado para verificar si el usuario existe
+  const userLocal = userExists ? JSON.parse(user) : null; // Inicializar userLocal solo si userExists es true
+
 
   useEffect(() => {
     fetchData();
-  }, []);
+    setUserExists(user !== null);
+  }, [user]);
 
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -96,6 +106,14 @@ const Inicio = () => {
           </View>
         ))}
       </ScrollView>
+      {userLocal?.rol !== null && (
+                <View>
+                    {/* Switch para manejar distintos tipos de usuarios */}
+                    {userLocal?.rol === 'super' && <BtnAdd onPressHandler={() => navigation.navigate('Nuevo Evento')} />}
+                    {userLocal?.rol === 'editor' && <BtnAdd onPressHandler={() => navigation.navigate('Nuevo Evento')} />}
+                </View>
+            )}
+
     </View>
   );
 };
@@ -107,8 +125,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   container: {
-    
-    alignItems: 'center',
     flex: 1,
     marginTop: 24,
     width:"100%",
