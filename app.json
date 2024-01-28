@@ -29,8 +29,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "5cc0b70d-4baf-4834-8b4d-cf676faf4751"
+        "projectId": "5cc0b70d-4baf-4834-8b4d-cf6767af4751"
       }
-    }
+    },
+    "owner": "cradel"
   }
 }
