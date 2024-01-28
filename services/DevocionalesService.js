@@ -5,10 +5,7 @@ import { baseUrl } from '../ENV';
 class DevocionalesService {
   static async fetchData() {
     try {
-      const storedData = await AsyncStorage.getItem('devocionalesData');
-      if (storedData) {
-        return JSON.parse(storedData);
-      }
+      
 
       const response = await axios.get(`${baseUrl}/devotional`);
       const result = response.data;
