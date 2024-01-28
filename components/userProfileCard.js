@@ -1,16 +1,12 @@
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { GlobalContentext } from '../context';
-import { Button as RNButton } from 'react-native';
 
 const UserProfileCard = () => {
-  const { removeToken, removeUser, user } = useContext(GlobalContentext);
+  const { user } = useContext(GlobalContentext);
   const userL = user ? JSON.parse(user) : {};
 
-  const handleLogout = () => {
-    removeToken();
-    removeUser();
-  };
+ 
   return (
     <View style={styles.outerDiv} key={userL ? userL.userid : null}>
       <View style={styles.innerDiv}>
@@ -21,7 +17,6 @@ const UserProfileCard = () => {
           <Text style={{ fontSize: 24, fontWeight: 'bold', marginTop: 8 }}>{userL.email}</Text>
           <Text style={{ color: '#888', marginTop: 4 }}>{userL.email}</Text>
           <View style={{ flexDirection: 'row', marginTop: 8 }}>
-            {/* Utilizando TouchableOpacity en lugar de Button */}
             <TouchableOpacity style={styles.touchableOpacity} onPress={() => console.log('Editar perfil')}>
               <Text style={styles.buttonText}>Editar Perfil</Text>
             </TouchableOpacity>
@@ -29,12 +24,7 @@ const UserProfileCard = () => {
               <Text style={styles.buttonText}>Cambiar Contraseña</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            style={[styles.touchableOpacity, styles.btnCerrarSeccion]}
-            onPress={handleLogout}
-          >
-            <Text style={[styles.buttonText, { color: "#fff" }]}>Cerrar sesión</Text>
-          </TouchableOpacity>
+          
         </View>
       </View>
     </View>
@@ -103,13 +93,23 @@ const styles = StyleSheet.create({
     width: 400,
   },
   touchableOpacity: {
+    padding: 8 ,
     borderRadius: 5,
     backgroundColor: '#fff', // Ajusta el color de fondo según tus necesidades
-    marginRight: 10,
+    margin: 10,
+    borderRadius: 18, 
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.20,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   buttonText: {
     color: '#000', // Ajusta el color del texto según tus necesidades
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: 'bold',
   },
   btnCerrarSeccion: {

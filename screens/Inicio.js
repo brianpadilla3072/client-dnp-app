@@ -1,76 +1,55 @@
 import React, { useState, useEffect, useContext } from "react";
 import { GlobalContentext } from '../context';
 import { ScrollView, RefreshControl, View, Text, StyleSheet } from "react-native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Portada from "../components/portada";
-import { baseUrl } from "../ENV";
 import BtnAdd from '../components/btnAdd'; // Importa el componente para usuarios "super"
 import { useNavigation } from '@react-navigation/native';
+import EventService from '../services/EventService';
 
 const Inicio = () => {
   const navigation = useNavigation();
 
   const { user } = useContext(GlobalContentext);
-  const [fechaData, setFechaData] = useState(null);
+  const [eventData, setEventData] = useState(null);
   const [error, setError] = useState(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [userExists, setUserExists] = useState(false);   // Nuevo estado para verificar si el usuario existe
-  const userLocal = userExists ? JSON.parse(user) : null; // Inicializar userLocal solo si userExists es true
-
+  const [userExists, setUserExists] = useState(false);
+  const userLocal = userExists ? JSON.parse(user) : null;
 
   useEffect(() => {
     fetchData();
     setUserExists(user !== null);
   }, [user]);
 
-  const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    const dateObject = new Date(dateString);
-    const formattedDate = dateObject.toLocaleDateString('es-ES', options);
-    const day = dateObject.getDate();
-    const month = dateObject.getMonth() + 1;
-    const year = dateObject.getFullYear();
-    return {
-      formattedDate,
-      day,
-      month,
-      year,
-    };
+  const formatDate = (data) => {
+    if (data && data.date) {
+      const dateObject = new Date(data.date);
+      const day = dateObject.getDate();
+      const month = dateObject.getMonth() + 1; // Los meses en JavaScript son de 0 a 11
+      const year = dateObject.getFullYear();
+  
+      return {
+        day,
+        month,
+        year,
+      };
+    }
+  
+    return null; // Manejar caso sin fecha o formato incorrecto
   };
+  
 
   const fetchData = async () => {
     try {
       setIsRefreshing(true);
 
-      const storedData = await AsyncStorage.getItem('fechasData');
-
-      if (storedData) {
-        setFechaData(JSON.parse(storedData));
-        setError(null);
-      }
-
-      const response = await fetch(`${baseUrl}/event`);
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const result = await response.json();
-      setFechaData(result);
+      const result = await EventService.fetchEventData();
+      setEventData(result);
       setError(null);
-
-      await AsyncStorage.setItem('fechasData', JSON.stringify(result));
     } catch (error) {
       console.error('Error al obtener datos:', error);
-
-      const storedData = await AsyncStorage.getItem('fechasData');
-
-      if (storedData) {
-        setFechaData(JSON.parse(storedData));
-        setError('Sin conexión');
-      } else {
-        setError('Error al obtener datos. Intente nuevamente.');
-      }
+      setEventData([]); // O manejar de otra forma según tus necesidades
+      setError('Error al obtener datos. Intente nuevamente.');
     } finally {
       setIsRefreshing(false);
     }
@@ -83,7 +62,6 @@ const Inicio = () => {
   return (
     <View style={styles.container}>
       <ScrollView
-
         contentContainerStyle={styles.scrollViewContainer}
         showsVerticalScrollIndicator={false}
         refreshControl={
@@ -93,12 +71,12 @@ const Inicio = () => {
           />
         }
       >
-              <Portada  imageUrl='https://scontent.fbhi1-1.fna.fbcdn.net/v/t39.30808-6/243184090_957574888306933_308468127860268102_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=783fdb&_nc_eui2=AeHwBXejKjpDWrVYMZDdHnzZq8eDXEVSzcSrx4NcRVLNxAItI8BBlRPP8RBsceujiG8y-T14Am2gcZFps_SEGu7Y&_nc_ohc=iKLN6bT17e8AX9h455R&_nc_ht=scontent.fbhi1-1.fna&oh=00_AfAF3wbdvZELbG0mLuqZapOHBIwfjIAUeGXgT7sk6CpGxQ&oe=65A7C241' />
+        <Portada imageUrl='https://scontent.fbhi1-1.fna.fbcdn.net/v/t39.30808-6/243184090_957574888306933_308468127860268102_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=783fdb&_nc_eui2=AeHwBXejKjpDWrVYMZDdHnzZq8eDXEVSzcSrx4NcRVLNxAItI8BBlRPP8RBsceujiG8y-T14Am2gcZFps_SEGu7Y&_nc_ohc=iKLN6bT17e8AX9h455R&_nc_ht=scontent.fbhi1-1.fna&oh=00_AfAF3wbdvZELbG0mLuqZapOHBIwfjIAUeGXgT7sk6CpGxQ&oe=65A7C241' />
 
-        {fechaData && fechaData.map((data, i) => (
-          <View key={i} style={styles.fechaContainer}>
+        {eventData && eventData.map((data, i) => (
+          <View key={i} style={styles.eventContainer}>
             <View style={styles.date}>
-              <Text>{formatDate(data.date).day}</Text>
+              <Text>{formatDate(data)?.day}</Text>
             </View>
             <View style={styles.title}>
               <Text>{data.tittle}</Text>
@@ -107,13 +85,15 @@ const Inicio = () => {
         ))}
       </ScrollView>
       {userLocal?.rol !== null && (
-                <View>
-                    {/* Switch para manejar distintos tipos de usuarios */}
-                    {userLocal?.rol === 'super' && <BtnAdd onPressHandler={() => navigation.navigate('Nuevo Evento')} />}
-                    {userLocal?.rol === 'editor' && <BtnAdd onPressHandler={() => navigation.navigate('Nuevo Evento')} />}
-                </View>
-            )}
-
+        <View>
+          {userLocal?.rol === 'super' && (
+            <BtnAdd onPressHandler={() => navigation.navigate('Nuevo Evento')} />
+          )}
+          {userLocal?.rol === 'editor' && (
+            <BtnAdd onPressHandler={() => navigation.navigate('Nuevo Evento')} />
+          )}
+        </View>
+      )}
     </View>
   );
 };
@@ -130,7 +110,7 @@ const styles = StyleSheet.create({
     width:"100%",
     
   },
-  fechaContainer: {
+  eventContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

@@ -1,3 +1,4 @@
+// LoginScreen.js
 import React, { useState, useContext } from 'react';
 import {
   View,
@@ -8,14 +9,13 @@ import {
   Image,
   Alert,
 } from 'react-native';
-import { baseUrl } from '../ENV';
-import { GlobalContentext } from "../context"; // Corrige la importación
-
+import AuthService from '../services/AuthLogInService';
+import { GlobalContentext } from '../context';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { setToken, setUser } = useContext(GlobalContentext); // Utilizando el contexto correcto
+  const { setToken, setUser } = useContext(GlobalContentext);
 
   const handleLogin = async () => {
     try {
@@ -24,26 +24,11 @@ const LoginScreen = () => {
         throw new Error('Por favor, ingrese correo y contraseña.');
       }
 
-      // Lógica de inicio de sesión aquí
-      const response = await fetch(`${baseUrl}/user/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
-      const responseData = await response.json();
-
-      if (!response.ok) {
-        throw new Error(responseData?.error || 'Error en el inicio de sesión');
-      }
+      // Lógica de inicio de sesión utilizando el servicio
+      const responseData = await AuthService.login(email, password);
 
       // Extraer el token de la respuesta
-      const { token } = responseData;
-      const { user } = responseData;
+      const { token, user } = responseData;
       setToken(token);
       setUser(JSON.stringify(user));
     } catch (error) {
@@ -82,11 +67,8 @@ const LoginScreen = () => {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
-      
         <Text style={styles.buttonText}>Ingresar</Text>
-      
-    </TouchableOpacity>
-      
+      </TouchableOpacity>
     </View>
   );
 };
@@ -132,7 +114,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
   },
-   button: {
+  button: {
     borderRadius: 4,
     paddingVertical: 12,
     paddingHorizontal: 16,
@@ -144,7 +126,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textAlign: 'center',
   }
-
 });
 
 export default LoginScreen;

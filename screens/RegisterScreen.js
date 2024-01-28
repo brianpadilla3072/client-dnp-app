@@ -1,3 +1,4 @@
+// RegisterScreen.js
 import React, { useState } from 'react';
 import {
   View,
@@ -8,7 +9,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import { baseUrl } from "../ENV";
+import AuthService from '../services/AuthService';
 
 const RegisterScreen = () => {
   const [firstName, setFirstName] = useState('');
@@ -36,21 +37,16 @@ const RegisterScreen = () => {
       // Convertir la fecha de nacimiento a milisegundos
       const dobInMilliseconds = new Date(`${birthYear}/${birthMonth}/${birthDay}`).getTime();
 
-      // Realizar la lógica de registro aquí
-      const response = await fetch(`${baseUrl}/user/signup`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          firstName,
-          lastName,
-          email,
-          dob: dobInMilliseconds, // Enviar dob en milisegundos
-          password,
-        }),
-      });
-      // ...
+      // Realizar la lógica de registro utilizando el servicio
+      const userData = {
+        firstName,
+        lastName,
+        email,
+        dob: dobInMilliseconds, // Enviar dob en milisegundos
+        password,
+      };
+
+      const response = await AuthService.register(userData);
 
       // Limpiar los campos después del registro exitoso
       setFirstName('');
@@ -66,12 +62,6 @@ const RegisterScreen = () => {
 
       // Realizar cualquier acción adicional después del registro exitoso
       // Manejar la respuesta
-      const responseData = await response.json();
-
-      // Verificar si la solicitud fue exitosa
-      if (!response.ok) {
-        throw new Error(responseData.error || 'Error en la solicitud de registro');
-      }
       // ...
 
     } catch (error) {
@@ -83,8 +73,7 @@ const RegisterScreen = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView
-      showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.logoContainer}>
           <Image
             source={require('../assets/icon.png')} // Agrega la ruta correcta de tu imagen
@@ -101,7 +90,6 @@ const RegisterScreen = () => {
             value={firstName}
             onChangeText={(text) => setFirstName(text)}
           />
-        
           <TextInput
             style={styles.input}
             placeholder="Apellido"
@@ -221,15 +209,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 16,
-    fontWeight: '600',
-  },
-  forgotPassword: {
-    alignItems: 'center',
-    marginTop: 24,
-  },
-  forgotPasswordText: {
-    color: '#3182CE',
-    fontSize: 14,
     fontWeight: '600',
   },
   error: {
