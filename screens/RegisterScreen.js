@@ -39,8 +39,8 @@ const RegisterScreen = () => {
 
       // Realizar la lógica de registro utilizando el servicio
       const userData = {
-        firstName,
-        lastName,
+        name,
+        surname,
         email,
         dob: dobInMilliseconds, // Enviar dob en milisegundos
         password,
