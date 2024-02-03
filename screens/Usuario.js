@@ -20,7 +20,7 @@ const Usuario = () => {
     return (
       <View>
         <Iniciar />
-        <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 24 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 10 }}>
           <Text style={{ fontSize: 14 }}>¿No tienes una cuenta? </Text>
           <TouchableOpacity onPress={toggleForm}>
             <Text style={{ color: '#fba007', fontSize: 14, fontWeight: '600' }}>Registrar</Text>
@@ -34,7 +34,7 @@ const Usuario = () => {
     return (
       <View>
         <Registrar />
-        <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 24 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 10 }}>
           <Text style={{ fontSize: 14 }}>¿Ya tienes una cuenta? </Text>
           <TouchableOpacity onPress={toggleForm}>
             <Text style={{ color: '#fba007', fontSize: 14, fontWeight: '600' }}>Ingresar</Text>
@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 24,
     padding: 16,
   },
 });

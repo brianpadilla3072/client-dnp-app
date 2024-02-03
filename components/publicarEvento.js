@@ -6,36 +6,39 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function PostComponent() {
   const navigation = useNavigation();
-  const { token, user } = useContext(GlobalContentext);
-  const [title, setTitle] = useState('');
+  const { token } = useContext(GlobalContentext);
+  const [name, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [day, setDay] = useState('');
+  const [month, setMonth] = useState('');
+  const [year, setYear] = useState('');
 
   const handlePublish = async () => {
     try {
-      const userObj = JSON.parse(user);
-      const userId = userObj.userId; // Utiliza la propiedad correcta según tu objeto de usuario
+      // Combina día, mes y año en una única cadena de fecha
+      const dateMilliseconds = new Date(`${year}-${month}-${day}`).getTime();
+
+
       const postData = {
-        userId: userId,
-        title: title,
+        date: dateMilliseconds,
+        name: name,
         description: description,
       };
+      console.log(dateMilliseconds)
 
-      const response = await fetch(`${baseUrl}/devotional`, {
+      const response = await fetch(`${baseUrl}/event`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `${token}`, // Incluye el token en el encabezado de Autorización
+          'Authorization': `${token}`,
         },
         body: JSON.stringify(postData),
       });
 
       if (response.ok) {
-        // Publicación exitosa, realiza las acciones necesarias
         console.log('Publicación exitosa');
         navigation.goBack();
-
       } else {
-        // Error en la publicación, maneja según sea necesario
         console.error('Error al publicar:', response.status);
       }
     } catch (error) {
@@ -61,11 +64,11 @@ export default function PostComponent() {
             placeholder="Ingrese el título"
             placeholderTextColor="#999999"
             onChangeText={text => setTitle(text)}
-            value={title}
+            value={name}
           />
         </View>
         <View style={{ marginBottom: 16 }}>
-          <Text style={{ fontSize: 16, color: 'darkslategray', marginBottom: 8 }}>Contenido</Text>
+          <Text style={{ fontSize: 16, color: 'darkslategray', marginBottom: 8 }}>Descripción</Text>
           <TextInput
             style={{
               height: 310,
@@ -85,6 +88,67 @@ export default function PostComponent() {
             onChangeText={text => setDescription(text)}
             value={description}
             required
+          />
+        </View>
+        <Text style={{ fontSize: 16, color: 'darkslategray', marginBottom: 8 }}>Dia Del Evento</Text>
+        <View style={{ flexDirection: 'row', marginBottom: 16 }}>
+          {/* Entrada para el día */}
+          <TextInput
+            style={{
+              flex: 1,
+              borderWidth: 1,
+              borderColor: '#cccccc',
+              borderRadius: 4,
+              paddingVertical: 8,
+              paddingHorizontal: 12,
+              fontSize: 16,
+              color: 'darkslategray',
+              marginRight: 8,
+            }}
+            placeholder="Día"
+            placeholderTextColor="#999999"
+            onChangeText={text => setDay(text)}
+            value={day}
+            keyboardType="numeric"
+            
+          />
+          {/* Entrada para el mes */}
+          <TextInput
+            style={{
+              flex: 1,
+              borderWidth: 1,
+              borderColor: '#cccccc',
+              borderRadius: 4,
+              paddingVertical: 8,
+              paddingHorizontal: 12,
+              fontSize: 16,
+              color: 'darkslategray',
+              marginRight: 8,
+            }}
+            placeholder="Mes"
+            placeholderTextColor="#999999"
+            onChangeText={text => setMonth(text)}
+            value={month}
+            keyboardType="numeric"
+
+          />
+          {/* Entrada para el año */}
+          <TextInput
+            style={{
+              flex: 1,
+              borderWidth: 1,
+              borderColor: '#cccccc',
+              borderRadius: 4,
+              paddingVertical: 8,
+              paddingHorizontal: 12,
+              fontSize: 16,
+              color: 'darkslategray',
+            }}
+            placeholder="Año"
+            placeholderTextColor="#999999"
+            onChangeText={text => setYear(text)}
+            keyboardType="numeric"
+            value={year}
           />
         </View>
         <TouchableOpacity

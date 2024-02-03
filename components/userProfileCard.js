@@ -14,7 +14,7 @@ const UserProfileCard = () => {
           <View style={styles.frontBkgPhoto}></View>
           <View style={styles.frontFacePhoto}></View>
 
-          <Text style={{ fontSize: 24, fontWeight: 'bold', marginTop: 8 }}>{userL.email}</Text>
+          <Text style={{ fontSize: 24, fontWeight: 'bold', marginTop: 8 }}>{userL.name} {userL.surname}</Text>
           <Text style={{ color: '#888', marginTop: 4 }}>{userL.email}</Text>
           <View style={{ flexDirection: 'row', marginTop: 8 }}>
             <TouchableOpacity style={styles.touchableOpacity} onPress={() => console.log('Editar perfil')}>

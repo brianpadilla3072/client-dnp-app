@@ -7,9 +7,6 @@ class EventService {
     try {
       const storedData = await AsyncStorage.getItem('eventData');
 
-      if (storedData) {
-        return JSON.parse(storedData);
-      }
 
       const response = await axios.get(`${baseUrl}/event`);
 

@@ -9,7 +9,7 @@ import {
   Image,
   Alert,
 } from 'react-native';
-import AuthService from '../services/AuthLogInService';
+import AuthService from '../services/AuthService';
 import { GlobalContentext } from '../context';
 
 const LoginScreen = () => {

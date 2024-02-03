@@ -1,3 +1,4 @@
+/**construir:   eas build --platform android --profile preview */
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import MainStack from './navigation/MainStack';

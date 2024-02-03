@@ -1,5 +1,5 @@
 // RegisterScreen.js
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import {
   View,
   Text,
@@ -10,10 +10,12 @@ import {
   ScrollView,
 } from 'react-native';
 import AuthService from '../services/AuthService';
+import { GlobalContentext } from '../context';
+
 
 const RegisterScreen = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [name, setFirstName] = useState('');
+  const [surname, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -22,11 +24,13 @@ const RegisterScreen = () => {
   const [birthYear, setBirthYear] = useState('');
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const { setToken, setUser } = useContext(GlobalContentext);
+
 
   const handleRegister = async () => {
     try {
       // Validaciones básicas
-      if (!firstName || !lastName || !email || !birthDay || !birthMonth || !birthYear || !password || !confirmPassword) {
+      if (!name || !surname || !email || !birthDay || !birthMonth || !birthYear || !password || !confirmPassword) {
         throw new Error('Todos los campos son obligatorios');
       }
 
@@ -35,8 +39,8 @@ const RegisterScreen = () => {
       }
 
       // Convertir la fecha de nacimiento a milisegundos
-      const dobInMilliseconds = new Date(`${birthYear}/${birthMonth}/${birthDay}`).getTime();
-
+      const dobInMilliseconds = new Date(`${birthYear}-${birthMonth}-${birthDay}`).getTime();
+      console.log(dobInMilliseconds)
       // Realizar la lógica de registro utilizando el servicio
       const userData = {
         name,
@@ -46,27 +50,28 @@ const RegisterScreen = () => {
         password,
       };
 
-      const response = await AuthService.register(userData);
+      const responseRegister = await AuthService.register(userData);
 
       // Limpiar los campos después del registro exitoso
-      setFirstName('');
-      setLastName('');
-      setEmail('');
-      setBirthDay('');
-      setBirthMonth('');
-      setBirthYear('');
-      setPassword('');
-      setConfirmPassword('');
-      setError('');
+      
       setSuccessMessage('Registro exitoso');
 
       // Realizar cualquier acción adicional después del registro exitoso
       // Manejar la respuesta
       // ...
 
+      const responselogin = await AuthService.login(email, password);
+      try{
+        const { token, user } = responselogin;
+        setToken(token);
+        setUser(JSON.stringify(user));
+      }catch(error){
+        Alert.alert('Error', error.message || 'Error en el inicio de sesión');
+
+      }
+
     } catch (error) {
       setError(error.message);
-      console.error(error.message);
       setSuccessMessage(''); // Limpiar el mensaje de éxito en caso de error
     }
   };
@@ -87,13 +92,13 @@ const RegisterScreen = () => {
           <TextInput
             style={styles.input}
             placeholder="Nombre"
-            value={firstName}
+            value={name}
             onChangeText={(text) => setFirstName(text)}
           />
           <TextInput
             style={styles.input}
             placeholder="Apellido"
-            value={lastName}
+            value={surname}
             onChangeText={(text) => setLastName(text)}
           />
           <TextInput
