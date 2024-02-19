@@ -23,10 +23,17 @@ const Inicio = () => {
 
   const formatDate = (data) => {
     if (data && data.date) {
-      const dateObject = new Date(data.date);
-      const day = dateObject.getDate();
-      const month = dateObject.getMonth() + 1; // Los meses en JavaScript son de 0 a 11
-      const year = dateObject.getFullYear();
+      const timestamp = Math.max(0, data.date);
+      const dateObject = new Date(timestamp);
+  
+      if (isNaN(dateObject.getUTCDate()) || isNaN(dateObject.getUTCMonth()) || isNaN(dateObject.getUTCFullYear())) {
+        console.error('Fecha inválida:', data.date);
+        return null; // Devolver null en caso de fecha inválida
+      }
+  
+      const day = ('0' + dateObject.getUTCDate()).slice(-2);
+      const month = ('0' + (dateObject.getUTCMonth() + 1)).slice(-2);
+      const year = dateObject.getUTCFullYear();
   
       return {
         day,
@@ -34,9 +41,14 @@ const Inicio = () => {
         year,
       };
     }
-  
-    return null; // Manejar caso sin fecha o formato incorrecto
   };
+  
+  
+  
+  
+  
+  
+  
   
 
   const fetchData = async () => {
@@ -74,12 +86,14 @@ const Inicio = () => {
         <Portada imageUrl='https://scontent.fbhi1-1.fna.fbcdn.net/v/t39.30808-6/243184090_957574888306933_308468127860268102_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=783fdb&_nc_eui2=AeHwBXejKjpDWrVYMZDdHnzZq8eDXEVSzcSrx4NcRVLNxAItI8BBlRPP8RBsceujiG8y-T14Am2gcZFps_SEGu7Y&_nc_ohc=iKLN6bT17e8AX9h455R&_nc_ht=scontent.fbhi1-1.fna&oh=00_AfAF3wbdvZELbG0mLuqZapOHBIwfjIAUeGXgT7sk6CpGxQ&oe=65A7C241' />
 
         {eventData && eventData.map((data, i) => (
-          <View key={i} style={styles.eventContainer}>
+          <View key={data.eventId} style={styles.eventContainer}>
             <View style={styles.date}>
-              <Text>{formatDate(data)?.day}</Text>
+            {console.log(data)}
+              {console.log(formatDate(data)?.day)}
+              <Text>{formatDate(data).day}</Text>
             </View>
             <View style={styles.title}>
-              <Text>{data.tittle}</Text>
+              <Text>{data.name}</Text>
             </View>
           </View>
         ))}
@@ -132,9 +146,9 @@ const styles = StyleSheet.create({
   },
   date: {
     alignItems:"center",
-    fontSize: 18,
+    fontSize: 10,
     fontWeight: 'bold',
-    width: '20%', // Cambiado a porcentaje
+    width: '25%', // Cambiado a porcentaje
   },
   title: {
     
