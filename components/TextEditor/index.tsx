@@ -40,7 +40,7 @@ const TextEditor = ({ handleChange }: Props) => {
               paddingHorizontal: 12,
               backgroundColor: "#f0f0f0",
               // fontSize: 16,
-              // color: "#33333",
+              // color: '#333333',
               // textAlignVertical: "top",
             }}
             onChange={handleChange}

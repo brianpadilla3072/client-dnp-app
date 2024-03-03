@@ -80,7 +80,7 @@ export default function PostComponent() {
               paddingVertical: 8,
               paddingHorizontal: 12,
               fontSize: 16,
-              color: '#33333',
+              color: '#333333',
               textAlignVertical: 'top',
             }}
             placeholder="Ingrese el contenido"
