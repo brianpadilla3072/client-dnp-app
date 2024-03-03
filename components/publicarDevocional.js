@@ -3,12 +3,16 @@ import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-nativ
 import { baseUrl } from "../ENV";
 import { GlobalContentext } from '../context';
 import { useNavigation } from '@react-navigation/native';
+import TextEditor from './TextEditor';
 
 export default function PostComponent() {
   const navigation = useNavigation();
   const { token, user } = useContext(GlobalContentext);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const handleDescription = (descriptionText) => {
+    setDescription(descriptionText)
+  }
 
   const handlePublish = async () => {
     try {
@@ -66,7 +70,8 @@ export default function PostComponent() {
         </View>
         <View style={{ marginBottom: 16 }}>
           <Text style={{ fontSize: 16, color: 'darkslategray', marginBottom: 8 }}>Contenido</Text>
-          <TextInput
+          <TextEditor handleChange={handleDescription} />
+          {/* <TextInput
             style={{
               height: 310,
               borderWidth: 1,
@@ -85,7 +90,7 @@ export default function PostComponent() {
             onChangeText={text => setDescription(text)}
             value={description}
             required
-          />
+          /> */}
         </View>
         <TouchableOpacity
           style={{
