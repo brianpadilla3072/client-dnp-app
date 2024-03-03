@@ -1,6 +1,7 @@
 import React from 'react';
 import { Avatar, Button, Card, Text } from 'react-native-paper';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import WebView from 'react-native-webview';
 
 const CardDevocionales = React.memo(({ title, description, icon }) => (
   <Card style={styles.cardDevocionales}>
@@ -9,8 +10,14 @@ const CardDevocionales = React.memo(({ title, description, icon }) => (
       titleStyle={styles.cardTitle} // Agrega este estilo para el título
       left={() => <Avatar.Icon icon={icon} style={styles.iconPerfil} />} // Agrega este estilo para el icono
     />
-    <Card.Content>
-      <Text variant="bodyMedium">{description}</Text>
+    <Card.Content style={{ flex: 1 }}>
+      <View style={{ height: 40 }}>
+        <WebView
+          style={{ backgroundColor: '#0000' }}
+          source={{ html: `<div style="font-size: 3rem">${description}</div>` }}
+        />
+      </View>
+      {/* <Text variant="bodyMedium">{dedscription}</Text> */}
     </Card.Content>
     <Card.Actions>
       <Button>Leer mas</Button>

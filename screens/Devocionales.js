@@ -6,6 +6,7 @@ import CardDevocionales from '../components/CardDevocionales';
 import BtnAdd from '../components/btnAdd';
 import { useNavigation } from '@react-navigation/native';
 import DevocionalesService from '../services/DevocionalesService';
+import WebView from 'react-native-webview';
 
 const Devocionales = () => {
   const navigation = useNavigation();
@@ -94,7 +95,22 @@ const Devocionales = () => {
                   <Button icon="arrow-left" style={styles.closeButtonIcon} />
                 </TouchableOpacity>
                 <Text style={styles.modalTitle}>{selectedItem.title}</Text>
-                <Text>{selectedItem.description}</Text>
+                <View
+                  style={{ height: 200 }}
+                >
+                  <WebView
+                    style={{
+                      flex: 1,
+                      marginVertical: 8,
+                    }}
+                    source={{
+                      html: `<div style="font-size: 2.5rem">
+                    ${selectedItem.description}
+                    </div>`,
+                    }}
+                  />
+                </View>
+                {/* <Text>{selectedItem.description}</Text> */}
               </View>
             </ScrollView>
           </View>
@@ -117,51 +133,51 @@ const Devocionales = () => {
 
 // Estilos del componente
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        marginTop: 24,
-        
-    },
-    cardContainer: {
-        marginBottom: 16,
-        marginRight:16,
-        marginLeft:16
-    },
-    modalContainer: {
-        flex: 1,
-        backgroundColor: 'rgba(255, 255, 255, 0.95)',
-    },
-    modalContent: {
-        padding: 16,
-        width: '100%',
-    },
-    modalTitle: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 8,
-        flex: 1,
-    },
-    closeButtonContainer: {
-        width: 40,
-        height: 40,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    closeButtonIcon: {
-        width: 24,
-        height: 24,
-    },
-    errorText: {
-        marginBottom: 10,
-        textAlign: 'center',
-        fontSize: 16,
-    },
-    userText: {
-        textAlign: 'center',
-        fontSize: 18,
-        color: 'green',
-        marginVertical: 10,
-    },
+  container: {
+    flex: 1,
+    marginTop: 24,
+
+  },
+  cardContainer: {
+    marginBottom: 16,
+    marginRight: 16,
+    marginLeft: 16
+  },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+  },
+  modalContent: {
+    padding: 16,
+    width: '100%',
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    flex: 1,
+  },
+  closeButtonContainer: {
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  closeButtonIcon: {
+    width: 24,
+    height: 24,
+  },
+  errorText: {
+    marginBottom: 10,
+    textAlign: 'center',
+    fontSize: 16,
+  },
+  userText: {
+    textAlign: 'center',
+    fontSize: 18,
+    color: 'green',
+    marginVertical: 10,
+  },
 });
 
 // Exportar el componente
