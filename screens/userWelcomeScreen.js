@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React, { useContext } from 'react';
 import { GlobalContentext } from '../context';
 import UserProfileCard from '../components/userProfileCard';
@@ -7,20 +7,21 @@ import UserProfileCard from '../components/userProfileCard';
 export default function WelcomeScreen() {
   const { removeToken, removeUser } = useContext(GlobalContentext);
 
-  const handleLogout = () => {
+  const handleLogout = (e) => {
+    e.stopPropagation();
     removeToken();
     removeUser();
   };
   return (
     <View style={styles.container}>
-      <UserProfileCard/>   
+      <UserProfileCard />
       <TouchableOpacity
-            style={[styles.touchableOpacity]}
-            onPress={handleLogout}
-          >
-            <Text style={[styles.buttonText, ]}>Cerrar sesión</Text>
-          </TouchableOpacity> 
-      </View>
+        style={[styles.touchableOpacity]}
+        onPress={handleLogout}
+      >
+        <Text style={[styles.buttonText,]}>Cerrar sesión</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
@@ -34,9 +35,9 @@ const styles = StyleSheet.create({
   touchableOpacity: {
     justifyContent: 'center',
     alignItems: "center",
-    width:"40%",
-    height:40,
-    padding: 8 ,
+    width: "40%",
+    height: 40,
+    padding: 8,
     borderRadius: 5,
     backgroundColor: '#fff', // Ajusta el color de fondo según tus necesidades
     margin: 10,

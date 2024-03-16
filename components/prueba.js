@@ -20,81 +20,82 @@ const RegisterScreen = () => {
   const [birthMonth, setBirthMonth] = useState('');
   const [birthYear, setBirthYear] = useState('');
 
-  const handleRegister = () => {
+  const handleRegister = (e) => {
+    e.stopPropagation();
     // Lógica de registro aquí
   };
 
   return (
     <View style={styles.container}>
       <ScrollView>
-      <View style={styles.logoContainer}>
-        <Image
-          source={require('../assets/icon.png')} // Agrega la ruta correcta de tu imagen
-          style={styles.logo}
-        />
-        <Text style={styles.title}>Crea tu cuenta</Text>
-      </View>
-      <View style={styles.formContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Nombre"
-          onChangeText={(text) => setFirstName(text)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Segundo nombre"
-          onChangeText={(text) => setSecondName(text)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Apellido"
-          onChangeText={(text) => setLastName(text)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Dirección de correo electrónico"
-          keyboardType="email-address"
-          onChangeText={(text) => setEmail(text)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Contraseña"
-          secureTextEntry
-          onChangeText={(text) => setPassword(text)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Confirmar contraseña"
-          secureTextEntry
-          onChangeText={(text) => setConfirmPassword(text)}
-        />
-        <View style={styles.dateOfBirthContainer}>
-          <TextInput
-            style={styles.dateInput}
-            placeholder="Día"
-            keyboardType="numeric"
-            onChangeText={(text) => setBirthDay(text)}
+        <View style={styles.logoContainer}>
+          <Image
+            source={require('../assets/icon.png')} // Agrega la ruta correcta de tu imagen
+            style={styles.logo}
           />
-          <TextInput
-            style={styles.dateInput}
-            placeholder="Mes"
-            keyboardType="numeric"
-            onChangeText={(text) => setBirthMonth(text)}
-          />
-          <TextInput
-            style={styles.dateInput}
-            placeholder="Año"
-            keyboardType="numeric"
-            onChangeText={(text) => setBirthYear(text)}
-          />
+          <Text style={styles.title}>Crea tu cuenta</Text>
         </View>
-        <TouchableOpacity style={styles.button} onPress={handleRegister}>
-          <Text style={styles.buttonText}>Registrarse</Text>
+        <View style={styles.formContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Nombre"
+            onChangeText={(text) => setFirstName(text)}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Segundo nombre"
+            onChangeText={(text) => setSecondName(text)}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Apellido"
+            onChangeText={(text) => setLastName(text)}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Dirección de correo electrónico"
+            keyboardType="email-address"
+            onChangeText={(text) => setEmail(text)}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Contraseña"
+            secureTextEntry
+            onChangeText={(text) => setPassword(text)}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Confirmar contraseña"
+            secureTextEntry
+            onChangeText={(text) => setConfirmPassword(text)}
+          />
+          <View style={styles.dateOfBirthContainer}>
+            <TextInput
+              style={styles.dateInput}
+              placeholder="Día"
+              keyboardType="numeric"
+              onChangeText={(text) => setBirthDay(text)}
+            />
+            <TextInput
+              style={styles.dateInput}
+              placeholder="Mes"
+              keyboardType="numeric"
+              onChangeText={(text) => setBirthMonth(text)}
+            />
+            <TextInput
+              style={styles.dateInput}
+              placeholder="Año"
+              keyboardType="numeric"
+              onChangeText={(text) => setBirthYear(text)}
+            />
+          </View>
+          <TouchableOpacity style={styles.button} onPress={handleRegister}>
+            <Text style={styles.buttonText}>Registrarse</Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity style={styles.forgotPassword} onPress={handleRegister}>
+          <Text style={styles.forgotPasswordText}>¿Ya tienes una cuenta? Inicia sesión</Text>
         </TouchableOpacity>
-      </View>
-      <TouchableOpacity style={styles.forgotPassword} onPress={handleRegister}>
-        <Text style={styles.forgotPasswordText}>¿Ya tienes una cuenta? Inicia sesión</Text>
-      </TouchableOpacity>
       </ScrollView>
     </View>
   );

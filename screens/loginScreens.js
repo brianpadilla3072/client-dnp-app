@@ -17,7 +17,8 @@ const LoginScreen = () => {
   const [password, setPassword] = useState('');
   const { setToken, setUser } = useContext(GlobalContentext);
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.stopPropagation();
     try {
       // Validaciones básicas
       if (!email || !password) {
@@ -43,9 +44,9 @@ const LoginScreen = () => {
           source={require('../assets/icon.png')} // Agrega la ruta correcta de tu imagen
           style={styles.logo}
         />
-         <Text style={styles.title}>Ingresa a tu cuenta</Text>
+        <Text style={styles.title}>Ingresa a tu cuenta</Text>
       </View>
-      
+
       <View style={{ width: '100%' }}>
         <TextInput
           autoCompleteType="email"
@@ -62,7 +63,7 @@ const LoginScreen = () => {
           onChangeText={(text) => setPassword(text)}
         />
       </View>
-      <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => Alert.alert('Perdiste tu contraseña?')}>
+      <TouchableOpacity style={{ alignItems: 'center' }} >
         <Text style={{ color: '#3182CE', fontSize: 14, fontWeight: '600' }}>Perdiste tu contraseña? </Text>
       </TouchableOpacity>
 

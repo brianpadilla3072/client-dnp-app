@@ -6,7 +6,7 @@ const UserProfileCard = () => {
   const { user } = useContext(GlobalContentext);
   const userL = user ? JSON.parse(user) : {};
 
- 
+
   return (
     <View style={styles.outerDiv} key={userL ? userL.userid : null}>
       <View style={styles.innerDiv}>
@@ -17,14 +17,14 @@ const UserProfileCard = () => {
           <Text style={{ fontSize: 24, fontWeight: 'bold', marginTop: 8 }}>{userL.name} {userL.surname}</Text>
           <Text style={{ color: '#888', marginTop: 4 }}>{userL.email}</Text>
           <View style={{ flexDirection: 'row', marginTop: 8 }}>
-            <TouchableOpacity style={styles.touchableOpacity} onPress={() => console.log('Editar perfil')}>
+            <TouchableOpacity style={styles.touchableOpacity} >
               <Text style={styles.buttonText}>Editar Perfil</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.touchableOpacity} onPress={() => console.log('Cambiar contraseña')}>
+            <TouchableOpacity style={styles.touchableOpacity} >
               <Text style={styles.buttonText}>Cambiar Contraseña</Text>
             </TouchableOpacity>
           </View>
-          
+
         </View>
       </View>
     </View>
@@ -93,11 +93,11 @@ const styles = StyleSheet.create({
     width: 400,
   },
   touchableOpacity: {
-    padding: 8 ,
+    padding: 8,
     borderRadius: 5,
     backgroundColor: '#fff', // Ajusta el color de fondo según tus necesidades
     margin: 10,
-    borderRadius: 18, 
+    borderRadius: 18,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

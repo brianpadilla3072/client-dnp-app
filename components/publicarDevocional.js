@@ -14,7 +14,8 @@ export default function PostComponent() {
     setDescription(descriptionText)
   }
 
-  const handlePublish = async () => {
+  const handlePublish = async (e) => {
+    e.stopPropagation();
     try {
       const userObj = JSON.parse(user);
       const userId = userObj.userId; // Utiliza la propiedad correcta según tu objeto de usuario

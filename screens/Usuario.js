@@ -12,7 +12,8 @@ const Usuario = () => {
     navigation.navigate('ajustes');
   };
 
-  const toggleForm = () => {
+  const toggleForm = (e) => {
+    e.stopPropagation();
     setIsSignIn(!isSignIn);
   };
 

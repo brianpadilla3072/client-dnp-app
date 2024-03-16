@@ -13,7 +13,8 @@ export default function PostComponent() {
   const [month, setMonth] = useState('');
   const [year, setYear] = useState('');
 
-  const handlePublish = async () => {
+  const handlePublish = async (e) => {
+    e.stopPropagation();
     try {
       // Combina día, mes y año en una única cadena de fecha
       const dateMilliseconds = new Date(`${year}-${month}-${day}`).getTime();

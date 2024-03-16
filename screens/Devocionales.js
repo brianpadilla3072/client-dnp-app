@@ -43,15 +43,22 @@ const Devocionales = () => {
     fetchData();
   };
 
-  const openModal = (item) => {
+  const openModal = (e, item) => {
+    e.stopPropagation();
     setSelectedItem(item);
     setModalVisible(true);
   };
 
-  const closeModal = () => {
+  const closeModal = (e) => {
+    e.stopPropagation();
     setModalVisible(false);
     setSelectedItem(null);
   };
+
+  const onPressHandler = (e) => {
+    e.stopPropagation()
+    navigation.navigate('Nuevo Devocional')
+  }
 
   return (
     <View style={styles.container}>
@@ -62,7 +69,7 @@ const Devocionales = () => {
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => openModal(item)}
+            onPress={(e) => openModal(e, item)}
             style={styles.cardContainer}
             activeOpacity={1}
           >
@@ -120,10 +127,10 @@ const Devocionales = () => {
       {userLocal?.rol !== null && (
         <View>
           {userLocal?.rol === 'super' && (
-            <BtnAdd onPressHandler={() => navigation.navigate('Nuevo Devocional')} />
+            <BtnAdd onPressHandler={onPressHandler} />
           )}
           {userLocal?.rol === 'editor' && (
-            <BtnAdd onPressHandler={() => navigation.navigate('Nuevo Devocional')} />
+            <BtnAdd onPressHandler={onPressHandler} />
           )}
         </View>
       )}

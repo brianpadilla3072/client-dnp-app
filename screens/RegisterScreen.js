@@ -1,5 +1,5 @@
 // RegisterScreen.js
-import React, { useState,useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   View,
   Text,
@@ -27,7 +27,8 @@ const RegisterScreen = () => {
   const { setToken, setUser } = useContext(GlobalContentext);
 
 
-  const handleRegister = async () => {
+  const handleRegister = async (e) => {
+    e.stopPropagation();
     try {
       // Validaciones básicas
       if (!name || !surname || !email || !birthDay || !birthMonth || !birthYear || !password || !confirmPassword) {
@@ -53,7 +54,7 @@ const RegisterScreen = () => {
       const responseRegister = await AuthService.register(userData);
 
       // Limpiar los campos después del registro exitoso
-      
+
       setSuccessMessage('Registro exitoso');
 
       // Realizar cualquier acción adicional después del registro exitoso
@@ -61,11 +62,11 @@ const RegisterScreen = () => {
       // ...
 
       const responselogin = await AuthService.login(email, password);
-      try{
+      try {
         const { token, user } = responselogin;
         setToken(token);
         setUser(JSON.stringify(user));
-      }catch(error){
+      } catch (error) {
         Alert.alert('Error', error.message || 'Error en el inicio de sesión');
 
       }
